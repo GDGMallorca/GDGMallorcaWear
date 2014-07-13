@@ -16,6 +16,20 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+
+        <receiver  android:name="com.gdgmallorcawear.ServiceReceiver">
+        </receiver>
+
+        <receiver  android:name="com.gdgmallorcawear.BootReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+            </intent-filter>
+        </receiver>
+
     </application>
+
+    <uses-permission android:name="android.permission.READ_CALENDAR"/>
+
 
 </manifest>

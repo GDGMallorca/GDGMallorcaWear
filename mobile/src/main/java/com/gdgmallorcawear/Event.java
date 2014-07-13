@@ -1,0 +1,36 @@
+package com.gdgmallorcawear;
+
+import java.util.ArrayList;
+
+/**
+ * Created by jmliras on 13/07/14.
+ */
+public class Event {
+    String eventName;
+    ArrayList<String> attendeesMail;
+    long eventCode;
+
+    public void setEventName(String eventName){
+        this.eventName = eventName;
+    }
+
+    public void setAttendeesMail(ArrayList<String> attendeesMail){
+        this.attendeesMail = attendeesMail;
+    }
+
+    public void setEventCode(long eventCode){
+        this.eventCode = eventCode;
+    }
+
+    public String getEventName(){
+        return eventName;
+    }
+
+    public ArrayList<String> getAttendeesMail(){
+        return attendeesMail;
+    }
+
+    public long getEventCode(){
+        return eventCode;
+    }
+}
