@@ -4,5 +4,9 @@
     <string name="app_name">GDGMallorcaWear</string>
     <string name="hello_round">Hello Round World!</string>
     <string name="hello_square">Hello Square World!</string>
-
+    <string name="delete">Delete</string>
+    <string name="desc_all_day">%s(All day)</string>
+    <string name="desc_time_period">%1$s(%2$s - %3$s)</string>
+    <string name="delete_successful">Event deleted</string>
+    <string name="delete_unsuccessful">Unable to delete event</string>
 </resources>
