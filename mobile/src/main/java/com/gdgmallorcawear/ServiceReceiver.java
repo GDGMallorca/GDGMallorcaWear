@@ -15,7 +15,6 @@ public class ServiceReceiver extends BroadcastReceiver {
         //Recuperar eventos
         ArrayList<Event> eventList = CalendarUtils.getEvents(context);
 
-
         //TODO: Si hay algun evento proximamente enviamos una notificacion y la preparamos para que envie mails
         //TODO: Los correos los sacamos de eventList, cada evento tiene un getAttendeesMail
 
