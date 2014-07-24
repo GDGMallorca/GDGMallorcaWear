@@ -26,7 +26,6 @@ public class DataLayerListenerService extends WearableListenerService {
     private static final String TAG = "DataLayerListenerServic";
 
     private static final String START_ACTIVITY_PATH = "/start-activity";
-    private static final String DATA_ITEM_RECEIVED_PATH = "/data-item-received";
     GoogleApiClient mGoogleApiClient;
 
     @Override

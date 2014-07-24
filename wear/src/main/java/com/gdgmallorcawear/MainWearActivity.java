@@ -32,6 +32,7 @@ public class MainWearActivity extends Activity implements ConnectionCallbacks,
         NodeApi.NodeListener, WearableListView.ClickListener {
 
     private static final String PATH = "/calendar";
+    private static final String EVENT_CODE = "id";
     private static final String EVENT_BEGIN = "begin";
     private static final String EVENT_TITLE = "title";
     private static final String EVENT_ATTENDEES = "attendes";
@@ -101,10 +102,11 @@ public class MainWearActivity extends Activity implements ConnectionCallbacks,
             DataMap data = mapDataItem.getDataMap();
             if (event.getDataItem().getUri().getPath().toString().equals(PATH)) {
                 final Event getEvent = new Event();
-                getEvent.setEventCode(data.getLong(EVENT_BEGIN));
+                getEvent.setEventCode(data.getLong(EVENT_CODE));
                 getEvent.setEventName(data.getString(EVENT_TITLE));
                 getEvent.setAttendeesMail(data.getStringArrayList(EVENT_ATTENDEES));
                 getEvent.setEventName(data.getString(EVENT_TITLE));
+                getEvent.setBegin(data.getLong(EVENT_BEGIN));
                 mEvents.add(getEvent);
             }
         }

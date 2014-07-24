@@ -2,9 +2,9 @@ package com.gdgmallorcawear;
 
 import android.content.Context;
 import android.support.wearable.view.WearableListView;
+import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -32,7 +32,8 @@ public final class EventsAdapter extends WearableListView.Adapter {
         TextView view = (TextView) holder.itemView.findViewById(R.id.text);
         TextView date = (TextView) holder.itemView.findViewById(R.id.date);
         view.setText(mEvents.get(position).getEventName());
-        date.setText(""+new Date(mEvents.get(position).getBegin()));
+        String dateString = DateFormat.format("dd/MM/yyyy hh:mm", new Date(mEvents.get(position).getBegin())).toString();
+        date.setText(dateString);
         holder.itemView.setTag(position);
     }
 
@@ -40,4 +41,6 @@ public final class EventsAdapter extends WearableListView.Adapter {
     public int getItemCount() {
         return mEvents.size();
     }
+
+
 }

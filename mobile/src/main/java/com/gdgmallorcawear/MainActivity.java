@@ -173,14 +173,10 @@ public class MainActivity extends Activity implements DataApi.DataListener,
 
     @Override
     public void onMessageReceived(final MessageEvent messageEvent) {
-
-
     }
 
     @Override
     public void onPeerConnected(final Node peer) {
-
-
     }
 
     @Override
