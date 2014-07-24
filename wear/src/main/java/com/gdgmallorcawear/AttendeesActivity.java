@@ -1,10 +1,13 @@
 package com.gdgmallorcawear;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.wearable.view.WearableListView;
 import android.util.Log;
+import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -29,6 +32,7 @@ import java.util.List;
 public class AttendeesActivity extends Activity implements WearableListView.ClickListener {
 
     private WearableListView mDataItemList;
+    private Button mButton;
     private EventsAdapter mAdapter;
     private static Activity sContext;
     private ArrayList<Event> mEvents = new ArrayList<Event>();
@@ -36,12 +40,27 @@ public class AttendeesActivity extends Activity implements WearableListView.Clic
     @Override
     public void onCreate(Bundle b) {
         super.onCreate(b);
-        setContentView(R.layout.activity_my);
+        setContentView(R.layout.attendees);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         mDataItemList = (WearableListView) findViewById(R.id.pager);
+        mButton = (Button) findViewById(R.id.btn_send_later);
+        mButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Intent result = new Intent(android.content.Intent.ACTION_SEND);
+                result.setType("plain/text");
+                result.putExtra(android.content.Intent.EXTRA_EMAIL, new String[] { "inaki.seri@gmail.com" });
+                result.putExtra(android.content.Intent.EXTRA_SUBJECT,"ddd");
+                result.putExtra(android.content.Intent.EXTRA_TEXT,"eeee");
+                startActivity(result);
+            }
+        });
+
         mDataItemList.setClickListener(this);
         mDataItemList.setAdapter(mAdapter);
+
         sContext = this;
+
     }
 
     @Override
