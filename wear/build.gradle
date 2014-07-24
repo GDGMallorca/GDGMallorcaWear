@@ -1,9 +1,9 @@
-apply plugin: 'com.android.application'
+apply plugin: 'android'
 
 
 android {
     compileSdkVersion 20
-    buildToolsVersion "20.0.0"
+    buildToolsVersion "20"
 
     defaultConfig {
         applicationId "com.gdgmallorcawear"
@@ -21,8 +21,7 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
     compile "com.android.support:support-v13:20.0.+"
-    compile 'com.google.android.support:wearable:+'
-    compile 'com.google.android.gms:play-services-wearable:+'
+    compile "com.google.android.support:wearable:1.0.+"
+    compile 'com.google.android.gms:play-services:5.+@aar'
 }

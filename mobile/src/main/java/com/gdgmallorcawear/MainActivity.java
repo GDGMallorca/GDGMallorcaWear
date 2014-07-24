@@ -37,6 +37,7 @@ public class MainActivity extends Activity implements DataApi.DataListener,
     private static final String EVENT_BEGIN = "begin";
     private static final String EVENT_TITLE = "title";
     private static final String EVENT_CODE = "id";
+    private static final String EVENT_ATTENDEES = "attendes";
     private static final int REQUEST_RESOLVE_ERROR = 1000;
     private static final String START_ACTIVITY_PATH = "/start-activity";
     private static final String CALENDAR_PATH = "/calendar";
@@ -59,32 +60,20 @@ public class MainActivity extends Activity implements DataApi.DataListener,
                 .build();
 
         Button btn = (Button) findViewById(R.id.btn);
+        Button start = (Button) findViewById(R.id.btn_start);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 sendEvents();
             }
         });
-    }
 
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.my, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
+        start.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new StartWearableActivityTask().execute();
+            }
+        });
     }
 
     private Collection<String> getNodes() {
@@ -132,16 +121,6 @@ public class MainActivity extends Activity implements DataApi.DataListener,
         if (!mResolvingError) {
             mGoogleApiClient.connect();
         }
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
     }
 
     @Override
@@ -216,6 +195,7 @@ public class MainActivity extends Activity implements DataApi.DataListener,
         data.putLong(EVENT_BEGIN, event.getBegin());
         data.putLong(EVENT_CODE, event.getEventCode());
         data.putString(EVENT_TITLE, event.getEventName());
+        data.putStringArrayList(EVENT_ATTENDEES, event.getAttendeesMail());
 
         return putDataMapRequest;
     }

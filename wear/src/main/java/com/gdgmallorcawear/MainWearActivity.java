@@ -1,16 +1,10 @@
 package com.gdgmallorcawear;
 
 import android.app.Activity;
-import android.content.Context;
-
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.support.wearable.view.WearableListView;
+import android.util.Log;
 import android.view.WindowManager;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.widget.TextView;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -28,31 +22,36 @@ import com.google.android.gms.wearable.Node;
 import com.google.android.gms.wearable.NodeApi;
 import com.google.android.gms.wearable.Wearable;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
-public class MainActivity extends Activity implements ConnectionCallbacks,
+public class MainWearActivity extends Activity implements ConnectionCallbacks,
         OnConnectionFailedListener, DataApi.DataListener, MessageApi.MessageListener,
-        NodeApi.NodeListener {
+        NodeApi.NodeListener, WearableListView.ClickListener {
 
     private static final String PATH = "/calendar";
     private static final String EVENT_BEGIN = "begin";
     private static final String EVENT_TITLE = "title";
+    private static final String EVENT_ATTENDEES = "attendes";
+
 
     private GoogleApiClient mGoogleApiClient;
-    private ListView mDataItemList;
-    private DataItemAdapter mAdapter;
+    private WearableListView mDataItemList;
+    private EventsAdapter mAdapter;
+    private static Activity sContext;
+    private ArrayList<Event> mEvents = new ArrayList<Event>();
 
     @Override
     public void onCreate(Bundle b) {
         super.onCreate(b);
         setContentView(R.layout.activity_my);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-        mDataItemList = (ListView) findViewById(R.id.pager);
-        mAdapter = new DataItemAdapter(getBaseContext(), 0);
+        mDataItemList = (WearableListView) findViewById(R.id.pager);
+        mDataItemList.setClickListener(this);
         mDataItemList.setAdapter(mAdapter);
 
-
+        sContext = this;
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .addApi(Wearable.API)
                 .addConnectionCallbacks(this)
@@ -80,6 +79,7 @@ public class MainActivity extends Activity implements ConnectionCallbacks,
         Wearable.DataApi.addListener(mGoogleApiClient, this);
         Wearable.MessageApi.addListener(mGoogleApiClient, this);
         Wearable.NodeApi.addListener(mGoogleApiClient, this);
+
     }
 
     @Override
@@ -96,24 +96,19 @@ public class MainActivity extends Activity implements ConnectionCallbacks,
         final List<DataEvent> events = FreezableUtils.freezeIterable(dataEvents);
         dataEvents.close();
         for (DataEvent event : events) {
-
             DataMapItem mapDataItem = DataMapItem.fromDataItem(event.getDataItem());
             DataMap data = mapDataItem.getDataMap();
-
             if (event.getDataItem().getUri().getPath().toString().equals(PATH)) {
                 final Event getEvent = new Event();
                 getEvent.setEventCode(data.getLong(EVENT_BEGIN));
                 getEvent.setEventName(data.getString(EVENT_TITLE));
-
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        mAdapter.add(getEvent);
-                    }
-                });
-
+                getEvent.setAttendeesMail(data.getStringArrayList(EVENT_ATTENDEES));
+                getEvent.setEventName(data.getString(EVENT_TITLE));
+                mEvents.add(getEvent);
             }
         }
+
+        drawAdapter();
     }
 
 
@@ -129,42 +124,28 @@ public class MainActivity extends Activity implements ConnectionCallbacks,
     public void onPeerDisconnected(Node node) {
     }
 
-    private static class DataItemAdapter extends ArrayAdapter<com.gdgmallorcawear.Event> {
 
-        private final Context mContext;
-
-
-        public DataItemAdapter(Context context, int unusedResource) {
-            super(context, unusedResource);
-            mContext = context;
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            ViewHolder holder;
-            if (convertView == null) {
-                holder = new ViewHolder();
-                LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(
-                        Context.LAYOUT_INFLATER_SERVICE);
-                convertView = inflater.inflate(android.R.layout.two_line_list_item, null);
-                convertView.setTag(holder);
-                holder.text1 = (TextView) convertView.findViewById(android.R.id.text1);
-                holder.text2 = (TextView) convertView.findViewById(android.R.id.text2);
-            } else {
-                holder = (ViewHolder) convertView.getTag();
+    private void drawAdapter() {
+        mAdapter = new EventsAdapter(sContext, mEvents);
+        mAdapter.notifyDataSetChanged();
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                mDataItemList.setAdapter(mAdapter);
             }
-            Event event = getItem(position);
-            holder.text1.setText(event.eventName);
-            holder.text2.setText(event.eventCode + "");
-            return convertView;
-        }
+        });
 
-        private class ViewHolder {
-
-            TextView text1;
-            TextView text2;
-        }
     }
 
 
+    @Override
+    public void onClick(WearableListView.ViewHolder viewHolder) {
+       //
+        Log.e("inaki", "xxxxxx");
+    }
+
+    @Override
+    public void onTopEmptyRegionClick() {
+
+    }
 }

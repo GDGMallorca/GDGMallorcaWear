@@ -3,20 +3,21 @@
     package="com.gdgmallorcawear">
 
     <uses-sdk
-        android:minSdkVersion="19"
-        android:targetSdkVersion="19" />
+        android:minSdkVersion="20"
+        android:targetSdkVersion="20" />
 
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@android:style/Theme.DeviceDefault">
+        android:theme="@android:style/Theme.DeviceDefault.Light">
 
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
+
         <activity
-            android:name=".MainActivity"
+            android:name=".MainWearActivity"
             android:screenOrientation="portrait"
             android:label="@string/app_name">
             <intent-filter>
@@ -24,9 +25,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
             <intent-filter>
-                <action android:name="com.example.android.wearable.datalayer.EXAMPLE" />
+                <action android:name="ccom.gdgmallorcawea.datalayer.START" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".AttendeesActivity"
+            android:screenOrientation="portrait" />
+
+        <service android:name=".DataLayerListenerService">
+            <intent-filter>
+                <action android:name="com.google.android.gms.wearable.BIND_LISTENER" />
+            </intent-filter>
+        </service>
     </application>
 </manifest>

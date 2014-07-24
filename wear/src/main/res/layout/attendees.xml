@@ -1,0 +1,16 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:orientation="vertical">
+    <Button
+        android:id="@+id/btn_send_later"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/send_mail"/>
+
+    <android.support.wearable.view.WearableListView
+        android:id="@+id/pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:keepScreenOn="true" />
+</LinearLayout>

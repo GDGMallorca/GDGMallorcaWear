@@ -4,5 +4,7 @@
     <string name="app_name">GDGMallorcaWear</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="get_events">Get events!!!</string>
+    <string name="start">Start App Wear!!!</string>
 
 </resources>
