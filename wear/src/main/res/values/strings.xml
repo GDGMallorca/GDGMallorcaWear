@@ -10,4 +10,5 @@
     <string name="delete_successful">Event deleted</string>
     <string name="delete_unsuccessful">Unable to delete event</string>
     <string name="send_mail">Send Mail</string>
+    <string name="sent">Sent</string>
 </resources>

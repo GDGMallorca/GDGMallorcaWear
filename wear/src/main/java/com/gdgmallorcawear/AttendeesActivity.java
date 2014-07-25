@@ -83,8 +83,8 @@ public class AttendeesActivity extends Activity implements WearableListView.Clic
 
     @Override
     public void onTimerFinished(View view) {
-        mDelayedConfirmationView.setImageDrawable(getResources().getDrawable(android.R.drawable.btn_star));
-        mButton.setVisibility(View.INVISIBLE);
+        mDelayedConfirmationView.setImageDrawable(getResources().getDrawable(R.drawable.ic_ok));
+        mButton.setText(getResources().getString(R.string.sent));
     }
 
     @Override
