@@ -6,5 +6,9 @@
     <string name="action_settings">Settings</string>
     <string name="get_events">Get events!!!</string>
     <string name="start">Start App Wear!!!</string>
+    <string name="warning_late">¿Vas a llegar tarde?</string>
+    <string name="notify_people">Llegaré targe</string>
+    <string name="mails_sent">Mails sent to:</string>
+    <string name="mails_sent_fail">Event ID error</string>
 
 </resources>
