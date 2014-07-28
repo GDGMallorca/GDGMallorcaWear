@@ -10,5 +10,10 @@
     <string name="notify_people">Llegaré targe</string>
     <string name="mails_sent">Mails sent to:</string>
     <string name="mails_sent_fail">Event ID error</string>
+    <string name="reply_label">Mensaje personalizado</string>
 
+    <string-array name="reply_choices">
+        <item>Llegaré targe</item>
+        <item>No voy a ir</item>
+    </string-array>
 </resources>

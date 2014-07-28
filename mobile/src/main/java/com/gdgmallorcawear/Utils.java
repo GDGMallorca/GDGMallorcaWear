@@ -17,6 +17,7 @@ public class Utils {
     public static long DEBUG_REFRESH_TIME = 60000; // 1 minuto
     public static String EXTRA_EVENT_ID = "EXTRA_EVENT_ID";
     public final static String GROUP_KEY_MESSAGES = "group_key_messages";
+    public static final String EXTRA_VOICE_REPLY = "extra_voice_reply";
 
     public static void startService(Context context) {
 
