@@ -73,6 +73,7 @@ public class AttendeesActivity extends Activity implements WearableListView.Clic
 
     @Override
     public void onClick(WearableListView.ViewHolder viewHolder) {
+
     }
 
     @Override

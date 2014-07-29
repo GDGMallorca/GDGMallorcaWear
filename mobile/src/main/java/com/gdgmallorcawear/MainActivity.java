@@ -2,14 +2,17 @@ package com.gdgmallorcawear;
 
 import android.app.Activity;
 import android.content.IntentSender;
+import android.net.MailTo;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+import com.gdgmallorcawear.mail.GMailSender;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
@@ -26,6 +29,7 @@ import com.google.android.gms.wearable.Wearable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Properties;
 
 
 public class MainActivity extends Activity implements DataApi.DataListener,
@@ -50,6 +54,10 @@ public class MainActivity extends Activity implements DataApi.DataListener,
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my);
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+
+        StrictMode.setThreadPolicy(policy);
+
         Utils.startService(getBaseContext());
 
 
@@ -64,7 +72,8 @@ public class MainActivity extends Activity implements DataApi.DataListener,
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sendEvents();
+                sendMail();
+                //           sendEvents();
             }
         });
 
@@ -208,6 +217,18 @@ public class MainActivity extends Activity implements DataApi.DataListener,
                 Log.e(TAG, "Failed to send data item: " + putDataMapRequest
                         + " - Client disconnected from Google Play Services");
             }
+        }
+    }
+
+    private void sendMail() {
+        try {
+            GMailSender sender = new GMailSender("inaki.seri@gmail.com", "nagusianagusia2");
+            sender.sendMail("Vamos acabando que queremos ir a por las alitas",
+                    "xD",
+                    "inaki.seri@gmail.com",
+                    "inaki.seri@gmail.com");
+        } catch (Exception e) {
+            Log.e("SendMail", e.getMessage(), e);
         }
     }
 }
