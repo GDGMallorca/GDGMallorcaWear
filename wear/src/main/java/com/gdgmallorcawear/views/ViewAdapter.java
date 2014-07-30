@@ -1,4 +1,4 @@
-package com.gdgmallorcawear.MockData;
+package com.gdgmallorcawear.views;
 
 import android.content.Context;
 import android.support.wearable.view.WearableListView;

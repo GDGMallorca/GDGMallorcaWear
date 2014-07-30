@@ -32,7 +32,7 @@ public class AttendeesActivity extends Activity implements WearableListView.Clic
     @Override
     public void onCreate(Bundle b) {
         super.onCreate(b);
-        setContentView(R.layout.attendees);
+        setContentView(R.layout.activity_attendees);
         sContext = this;
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         mDataItemList = (WearableListView) findViewById(R.id.pager);

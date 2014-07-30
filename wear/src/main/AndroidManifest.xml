@@ -17,7 +17,7 @@
             android:value="@integer/google_play_services_version" />
 
         <activity
-            android:name=".ViewsActivity"
+            android:name=".views.ViewsActivity"
             android:screenOrientation="portrait"
             android:label="@string/app_name">
             <intent-filter>
@@ -29,11 +29,15 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".AttendeesActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".CircledDelayedActivity"
+            android:name=".views.CircledDelayedActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".views.GridViewPagerViewActivity"
             android:screenOrientation="portrait" />
 
         <service android:name=".DataLayerListenerService">

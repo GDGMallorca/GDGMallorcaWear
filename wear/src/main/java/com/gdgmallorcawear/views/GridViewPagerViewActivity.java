@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.gdgmallorcawear.MockData;
+package com.gdgmallorcawear.views;
 
 import android.app.Activity;
 import android.content.res.Resources;
@@ -24,13 +24,14 @@ import android.view.View.OnApplyWindowInsetsListener;
 import android.view.WindowInsets;
 
 import com.gdgmallorcawear.R;
+import com.gdgmallorcawear.views.SampleGridPagerAdapter;
 
 public class GridViewPagerViewActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_gridviewpager);
         final Resources res = getResources();
         final GridViewPager pager = (GridViewPager) findViewById(R.id.pager);
         pager.setOnApplyWindowInsetsListener(new OnApplyWindowInsetsListener() {
