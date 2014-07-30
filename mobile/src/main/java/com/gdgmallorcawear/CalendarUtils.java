@@ -118,6 +118,7 @@ public class CalendarUtils {
                                     attendeeList.add(eventAttendeesCursor.getString(1));
                                     Log.d("JM", "aceptado!-->" + eventAttendeesCursor.getString(1));
                                 } else {
+                                    if (BuildConfig.DEBUG) attendeeList.add(eventAttendeesCursor.getString(1));
                                     Log.d("JM", "no aceptado!-->" + eventAttendeesCursor.getString(0));
                                 }
                             } while (eventAttendeesCursor.moveToNext());

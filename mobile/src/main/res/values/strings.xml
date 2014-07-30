@@ -8,6 +8,7 @@
     <string name="start">Start App Wear!!!</string>
     <string name="warning_late">¿Vas a llegar tarde?</string>
     <string name="notify_people">Llegaré targe</string>
+    <string name="mail_body">The mail body is:</string>
     <string name="mails_sent">Mails sent to:</string>
     <string name="mails_sent_fail">Event ID error</string>
     <string name="reply_label">Mensaje personalizado</string>

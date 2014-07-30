@@ -4,11 +4,13 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.RemoteInput;
+import android.text.SpannableString;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -17,16 +19,20 @@ public class SendMailsActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.send_mails);
+
         Intent intent = getIntent();
 
         Log.d("SEND_MAILS_ACTIVITY", "I'm in");
 
         // Si tiene mensaje de voz utilizalo sino default
-        String body = (String)getMessageText(intent);
-        if (body == null) body = getString(R.string.notify_people);
+        SpannableString body = (SpannableString)getMessageText(intent);
+        if (body == null) body = SpannableString.valueOf(getString(R.string.notify_people));
+
+        ((TextView)findViewById(R.id.mail_body)).setText(body);
 
         if (intent.hasExtra(Utils.EXTRA_EVENT_ID)) {
-            setContentView(R.layout.send_mails);
+            Log.d("SEND_MAILS_ACTIVITY", "EXTRA_ID: " + intent.getLongExtra(Utils.EXTRA_EVENT_ID, 0));
 
             ArrayList<String> mails = new ArrayList<String>();
             Event event = CalendarUtils.getSingleEvent(

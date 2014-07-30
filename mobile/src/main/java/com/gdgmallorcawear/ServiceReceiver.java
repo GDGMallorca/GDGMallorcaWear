@@ -29,8 +29,9 @@ public class ServiceReceiver extends BroadcastReceiver {
         for (Event event : eventList) {
             Intent viewIntent = new Intent(context, SendMailsActivity.class);
             viewIntent.putExtra(Utils.EXTRA_EVENT_ID, event.getEventCode());
+            viewIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             PendingIntent sendPendingIntent =
-                    PendingIntent.getActivity(context, 0, viewIntent, 0);
+                    PendingIntent.getActivity(context, 0, viewIntent, PendingIntent.FLAG_ONE_SHOT);
 
             // Create the reply action and add the remote input
             NotificationCompat.Action replyAction =
