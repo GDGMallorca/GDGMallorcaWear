@@ -1,4 +1,4 @@
-<android.support.wearable.view.WearableListView
+<android.support.wearable.view.GridViewPager
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/pager"
     android:layout_width="match_parent"
