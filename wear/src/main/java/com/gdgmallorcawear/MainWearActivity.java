@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.wearable.view.WearableListView;
-import android.util.Log;
 import android.view.WindowManager;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -47,7 +46,7 @@ public class MainWearActivity extends Activity implements ConnectionCallbacks,
     @Override
     public void onCreate(Bundle b) {
         super.onCreate(b);
-        setContentView(R.layout.activity_my);
+        setContentView(R.layout.activity_wearablelistview);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         mDataItemList = (WearableListView) findViewById(R.id.pager);
         mDataItemList.setClickListener(this);

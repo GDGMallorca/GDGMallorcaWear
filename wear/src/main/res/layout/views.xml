@@ -4,9 +4,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:gravity="center">
 
     <android.support.wearable.view.CircledImageView
+        android:id="@+id/views_civ"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -16,7 +18,7 @@
         app:circle_radius_pressed="40dp" />
 
     <android.support.wearable.view.DelayedConfirmationView
-        android:id="@+id/delayed_confirmation"
+        android:id="@+id/views_dcv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -27,5 +29,12 @@
         app:circle_padding="@dimen/circle_padding"
         app:circle_border_width="@dimen/circle_border_normal_width"
         app:circle_border_color="@color/black" />
+
+    <Button
+        android:id="@+id/btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/start"/>
 
 </LinearLayout>
