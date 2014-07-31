@@ -177,7 +177,8 @@ public class MainActivity extends Activity implements DataApi.DataListener,
 
     @Override
     public void onMessageReceived(final MessageEvent messageEvent) {
-        sendMail(Long.parseLong(messageEvent.getPath()));
+
+        sendMail(messageEvent.getPath());
     }
 
     @Override
@@ -216,14 +217,15 @@ public class MainActivity extends Activity implements DataApi.DataListener,
         }
     }
 
-    private void sendMail(Long id) {
-        Event event = CalendarUtils.getSingleEvent(this, id);
+    private void sendMail(String path) {
+        String[] message = path.split("::");
+        Event event = CalendarUtils.getSingleEvent(this, Long.parseLong(message[0]));
 
         try {
             GMailSender sender = new GMailSender("mallorcagdgtest@gmail.com", "2345dpKkOLlawp");
             for(String atttendees : event.getAttendeesMail()) {
-                sender.sendMail("Vamos acabando que queremos ir a por las alitas",
-                        "xD",
+                sender.sendMail(message[1],
+                        "Vamos acabando que queremos ir a por las alitas",
                         "mallorcagdgtest@gmail.com",
                         atttendees);
             }

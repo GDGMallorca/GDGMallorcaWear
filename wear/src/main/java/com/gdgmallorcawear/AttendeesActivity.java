@@ -40,6 +40,7 @@ public class AttendeesActivity extends Activity implements WearableListView.Clic
     private Button mButton;
     private ArrayList<String> mAttendees = new ArrayList<String>();
     private Long mId;
+    private String mString;
     private static final String EXTRA_ARGS_ID = "args_id";
     private static final String EXTRA_ARGS_ATTENDEES = "args_attendees";
     private static final int NUM_SECONDS = 2;
@@ -162,6 +163,7 @@ public class AttendeesActivity extends Activity implements WearableListView.Clic
             String spokenText = results.get(0);
             // Do something with spokenText
             Log.d("JM", "Texto:" + spokenText);
+            mString = spokenText;
             new sendMails().execute();
             mDataItemList.setVisibility(View.GONE);
             mDelayedConfirmationView.setVisibility(View.VISIBLE);
@@ -201,7 +203,7 @@ public class AttendeesActivity extends Activity implements WearableListView.Clic
             Collection<String> nodes = getNodes();
             for (String node : nodes) {
                 Wearable.MessageApi.sendMessage(
-                        mGoogleApiClient, node, mId.toString(), new byte[0]).setResultCallback(
+                        mGoogleApiClient, node, mId.toString()+"::"+mString, new byte[0]).setResultCallback(
                         new ResultCallback<MessageApi.SendMessageResult>() {
                             @Override
                             public void onResult(MessageApi.SendMessageResult sendMessageResult) {
