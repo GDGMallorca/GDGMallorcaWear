@@ -2,16 +2,13 @@ package com.gdgmallorcawear.views;
 
 import android.content.Context;
 import android.support.wearable.view.WearableListView;
-import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.gdgmallorcawear.Event;
 import com.gdgmallorcawear.R;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 public final class ViewAdapter extends WearableListView.Adapter {
     private final LayoutInflater mInflater;

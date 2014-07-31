@@ -4,8 +4,8 @@ package com.gdgmallorcawear;
  * Created by jmliras on 13/07/14.
  */
 
-import android.content.Context;
 import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
 
 public class BootReceiver extends BroadcastReceiver {

@@ -5,7 +5,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.CalendarContract;
-
 import android.text.format.DateUtils;
 import android.util.Log;
 
@@ -48,6 +47,7 @@ public class CalendarUtils {
                     Event event = new Event();
                     event.setEventName(mCursor.getString(0));
                     event.setEventCode(mCursor.getLong(4));
+                    event.setBegin(mCursor.getLong(1));
 
                     Log.d("JM", "Evento-->" + mCursor.getString(0));
 
@@ -105,6 +105,7 @@ public class CalendarUtils {
                     event = new Event();
                     event.setEventName(mCursor.getString(0));
                     event.setEventCode(mCursor.getLong(4));
+                    event.setBegin(mCursor.getLong(1));
 
                     Log.d("JM", "Evento-->" + mCursor.getString(0));
 

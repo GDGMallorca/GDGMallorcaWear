@@ -2,21 +2,12 @@ package com.gdgmallorcawear;
 
 
 import android.content.Intent;
-import android.net.Uri;
-import android.util.Log;
 
-import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.data.FreezableUtils;
-import com.google.android.gms.wearable.DataEvent;
 import com.google.android.gms.wearable.DataEventBuffer;
 import com.google.android.gms.wearable.MessageEvent;
-import com.google.android.gms.wearable.Node;
 import com.google.android.gms.wearable.Wearable;
 import com.google.android.gms.wearable.WearableListenerService;
-
-import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Listens to DataItems and Messages from the local node.

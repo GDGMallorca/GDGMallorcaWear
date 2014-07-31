@@ -24,7 +24,6 @@ import android.view.View.OnApplyWindowInsetsListener;
 import android.view.WindowInsets;
 
 import com.gdgmallorcawear.R;
-import com.gdgmallorcawear.views.SampleGridPagerAdapter;
 
 public class GridViewPagerViewActivity extends Activity {
 

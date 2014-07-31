@@ -34,8 +34,9 @@ public class MainWearActivity extends Activity implements ConnectionCallbacks,
     private static final String EVENT_CODE = "id";
     private static final String EVENT_BEGIN = "begin";
     private static final String EVENT_TITLE = "title";
-    private static final String EVENT_ATTENDEES = "attendes";
-    private static final String EXTRA_ARGS = "args";
+    private static final String EVENT_ATTENDEES = "attendees";
+    private static final String EXTRA_ARGS_ID = "args_id";
+    private static final String EXTRA_ARGS_ATTENDEES = "args_attendees";
 
 
     private GoogleApiClient mGoogleApiClient;
@@ -103,7 +104,6 @@ public class MainWearActivity extends Activity implements ConnectionCallbacks,
             if (event.getDataItem().getUri().getPath().toString().equals(PATH)) {
                 final Event getEvent = new Event();
                 getEvent.setEventCode(data.getLong(EVENT_CODE));
-                getEvent.setEventName(data.getString(EVENT_TITLE));
                 getEvent.setAttendeesMail(data.getStringArrayList(EVENT_ATTENDEES));
                 getEvent.setEventName(data.getString(EVENT_TITLE));
                 getEvent.setBegin(data.getLong(EVENT_BEGIN));
@@ -145,9 +145,10 @@ public class MainWearActivity extends Activity implements ConnectionCallbacks,
     public void onClick(WearableListView.ViewHolder viewHolder) {
         Integer position = (Integer) viewHolder.itemView.getTag();
         Bundle extras = new Bundle();
-        extras.putStringArrayList(EXTRA_ARGS, mEvents.get(position).getAttendeesMail());
+        extras.putStringArrayList(EXTRA_ARGS_ATTENDEES, mEvents.get(position).getAttendeesMail());
+        extras.putLong(EXTRA_ARGS_ID, mEvents.get(position).getEventCode());
         Intent intent = new Intent();
-        intent.setClass(this,AttendeesActivity.class);
+        intent.setClass(this, AttendeesActivity.class);
         intent.putExtras(extras);
         startAttendeesActivity(intent);
     }

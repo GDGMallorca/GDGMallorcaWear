@@ -1,8 +1,8 @@
 package com.gdgmallorcawear;
 
 import android.app.Activity;
-import android.os.AsyncTask;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
 import android.support.wearable.view.DelayedConfirmationView;
@@ -25,12 +25,9 @@ import com.google.android.gms.wearable.NodeApi;
 import com.google.android.gms.wearable.Wearable;
 
 import java.util.ArrayList;
-
 import java.util.Collection;
 import java.util.HashSet;
-
 import java.util.List;
-
 
 
 public class AttendeesActivity extends Activity implements WearableListView.ClickListener,
@@ -41,26 +38,22 @@ public class AttendeesActivity extends Activity implements WearableListView.Clic
     private WearableListView mDataItemList;
     private DelayedConfirmationView mDelayedConfirmationView;
     private Button mButton;
-    private ViewAdapter mAdapter;
-    private static Activity sContext;
-    private ArrayList<String> mAttendes = new ArrayList<String>();
+    private ArrayList<String> mAttendees = new ArrayList<String>();
+    private Long mId;
+    private static final String EXTRA_ARGS_ID = "args_id";
+    private static final String EXTRA_ARGS_ATTENDEES = "args_attendees";
     private static final int NUM_SECONDS = 2;
-
-    private static final String EXTRA_ARGS = "args";
     private GoogleApiClient mGoogleApiClient;
-
     private static final int SPEECH_REQUEST_CODE = 0;
-
-
 
 
     @Override
     public void onCreate(Bundle b) {
         super.onCreate(b);
         setContentView(R.layout.activity_attendees);
-        sContext = this;
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-        mAttendes = getIntent().getStringArrayListExtra(EXTRA_ARGS);
+        mAttendees = getIntent().getStringArrayListExtra(EXTRA_ARGS_ATTENDEES);
+        mId = getIntent().getLongExtra(EXTRA_ARGS_ID, 0);
 
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .addApi(Wearable.API)
@@ -68,7 +61,6 @@ public class AttendeesActivity extends Activity implements WearableListView.Clic
                 .addOnConnectionFailedListener(this)
                 .build();
         initViews();
-        sContext = this;
     }
 
     @Override
@@ -101,7 +93,7 @@ public class AttendeesActivity extends Activity implements WearableListView.Clic
     }
 
     private void initViews() {
-        mDataItemList = (WearableListView) findViewById(R.id.pager);
+        mDataItemList = (WearableListView) findViewById(R.id.wear_wlv);
 
         mDelayedConfirmationView = (DelayedConfirmationView) findViewById(R.id.delayed_confirmation);
         mDelayedConfirmationView.setTotalTimeMs(NUM_SECONDS * 1000);
@@ -111,16 +103,12 @@ public class AttendeesActivity extends Activity implements WearableListView.Clic
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                new sendMails().execute();
-                mDataItemList.setVisibility(View.GONE);
-                mDelayedConfirmationView.setVisibility(View.VISIBLE);
-                mDelayedConfirmationView.start();
+                displaySpeechRecognizer();
 
             }
         });
         mDataItemList.setClickListener(this);
-        mDataItemList.setAdapter(new ViewAdapter(this, mAttendes));
+        mDataItemList.setAdapter(new ViewAdapter(this, mAttendees));
     }
 
     @Override
@@ -130,7 +118,7 @@ public class AttendeesActivity extends Activity implements WearableListView.Clic
         Wearable.NodeApi.addListener(mGoogleApiClient, this);
 
         //Start the speech recognition
-        displaySpeechRecognizer();
+        //     displaySpeechRecognizer();
 
     }
 
@@ -173,7 +161,12 @@ public class AttendeesActivity extends Activity implements WearableListView.Clic
                     RecognizerIntent.EXTRA_RESULTS);
             String spokenText = results.get(0);
             // Do something with spokenText
-            Log.d("JM","Texto:"+spokenText);
+            Log.d("JM", "Texto:" + spokenText);
+            new sendMails().execute();
+            mDataItemList.setVisibility(View.GONE);
+            mDelayedConfirmationView.setVisibility(View.VISIBLE);
+            mDelayedConfirmationView.start();
+
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
@@ -206,19 +199,15 @@ public class AttendeesActivity extends Activity implements WearableListView.Clic
         @Override
         protected Void doInBackground(Void... args) {
             Collection<String> nodes = getNodes();
-            Log.e("inaki", "*******************");
             for (String node : nodes) {
-                Log.e("inaki", "*******************");
                 Wearable.MessageApi.sendMessage(
-                        mGoogleApiClient, node, "cc", new byte[0]).setResultCallback(
+                        mGoogleApiClient, node, mId.toString(), new byte[0]).setResultCallback(
                         new ResultCallback<MessageApi.SendMessageResult>() {
                             @Override
                             public void onResult(MessageApi.SendMessageResult sendMessageResult) {
-                                Log.e("inaki","**"+sendMessageResult.getStatus().isSuccess());
                                 if (!sendMessageResult.getStatus().isSuccess()) {
                                 }
                             }
-
                         }
                 );
 
@@ -232,6 +221,5 @@ public class AttendeesActivity extends Activity implements WearableListView.Clic
         super.onStart();
         mGoogleApiClient.connect();
     }
-
 
 }

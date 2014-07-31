@@ -11,7 +11,7 @@
         android:text="@string/send_mail" />
 
     <android.support.wearable.view.WearableListView
-        android:id="@+id/pager"
+        android:id="@+id/wear_wlv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:keepScreenOn="true" />

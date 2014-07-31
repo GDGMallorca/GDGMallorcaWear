@@ -2,13 +2,10 @@ package com.gdgmallorcawear;
 
 import android.app.Activity;
 import android.content.IntentSender;
-import android.net.MailTo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
@@ -29,7 +26,6 @@ import com.google.android.gms.wearable.Wearable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.Properties;
 
 
 public class MainActivity extends Activity implements DataApi.DataListener,
@@ -41,7 +37,7 @@ public class MainActivity extends Activity implements DataApi.DataListener,
     private static final String EVENT_BEGIN = "begin";
     private static final String EVENT_TITLE = "title";
     private static final String EVENT_CODE = "id";
-    private static final String EVENT_ATTENDEES = "attendes";
+    private static final String EVENT_ATTENDEES = "attendees";
     private static final int REQUEST_RESOLVE_ERROR = 1000;
     private static final String START_ACTIVITY_PATH = "/start-activity";
     private static final String CALENDAR_PATH = "/calendar";
@@ -181,7 +177,7 @@ public class MainActivity extends Activity implements DataApi.DataListener,
 
     @Override
     public void onMessageReceived(final MessageEvent messageEvent) {
-        sendMail();
+        sendMail(Long.parseLong(messageEvent.getPath()));
     }
 
     @Override
@@ -220,13 +216,17 @@ public class MainActivity extends Activity implements DataApi.DataListener,
         }
     }
 
-    private void sendMail() {
+    private void sendMail(Long id) {
+        Event event = CalendarUtils.getSingleEvent(this, id);
+
         try {
             GMailSender sender = new GMailSender("mallorcagdgtest@gmail.com", "2345dpKkOLlawp");
-            sender.sendMail("Vamos acabando que queremos ir a por las alitas",
-                    "xD",
-                    "inaki.seri@gmail.com",
-                    "inaki.seri@gmail.com");
+            for(String atttendees : event.getAttendeesMail()) {
+                sender.sendMail("Vamos acabando que queremos ir a por las alitas",
+                        "xD",
+                        "mallorcagdgtest@gmail.com",
+                        atttendees);
+            }
         } catch (Exception e) {
             Log.e("SendMail", e.getMessage(), e);
         }
