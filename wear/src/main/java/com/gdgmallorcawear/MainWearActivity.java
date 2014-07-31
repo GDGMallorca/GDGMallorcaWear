@@ -35,6 +35,7 @@ public class MainWearActivity extends Activity implements ConnectionCallbacks,
     private static final String EVENT_BEGIN = "begin";
     private static final String EVENT_TITLE = "title";
     private static final String EVENT_ATTENDEES = "attendes";
+    private static final String EXTRA_ARGS = "args";
 
 
     private GoogleApiClient mGoogleApiClient;
@@ -48,7 +49,7 @@ public class MainWearActivity extends Activity implements ConnectionCallbacks,
         super.onCreate(b);
         setContentView(R.layout.activity_wearablelistview);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-        mDataItemList = (WearableListView) findViewById(R.id.pager);
+        mDataItemList = (WearableListView) findViewById(R.id.wear_wlv);
         mDataItemList.setClickListener(this);
         mDataItemList.setAdapter(mAdapter);
 
@@ -142,7 +143,13 @@ public class MainWearActivity extends Activity implements ConnectionCallbacks,
 
     @Override
     public void onClick(WearableListView.ViewHolder viewHolder) {
-        startAttendeesActivity();
+        Integer position = (Integer) viewHolder.itemView.getTag();
+        Bundle extras = new Bundle();
+        extras.putStringArrayList(EXTRA_ARGS, mEvents.get(position).getAttendeesMail());
+        Intent intent = new Intent();
+        intent.setClass(this,AttendeesActivity.class);
+        intent.putExtras(extras);
+        startAttendeesActivity(intent);
     }
 
     @Override
@@ -150,8 +157,8 @@ public class MainWearActivity extends Activity implements ConnectionCallbacks,
 
     }
 
-    private void startAttendeesActivity() {
-        startActivity(new Intent(this, AttendeesActivity.class));
+    private void startAttendeesActivity(Intent intent) {
+        startActivity(intent);
 
     }
 }

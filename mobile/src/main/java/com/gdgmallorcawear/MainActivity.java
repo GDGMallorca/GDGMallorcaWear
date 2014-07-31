@@ -72,8 +72,7 @@ public class MainActivity extends Activity implements DataApi.DataListener,
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sendMail();
-                //           sendEvents();
+                sendEvents();
             }
         });
 
@@ -182,6 +181,7 @@ public class MainActivity extends Activity implements DataApi.DataListener,
 
     @Override
     public void onMessageReceived(final MessageEvent messageEvent) {
+        sendMail();
     }
 
     @Override
@@ -222,7 +222,7 @@ public class MainActivity extends Activity implements DataApi.DataListener,
 
     private void sendMail() {
         try {
-            GMailSender sender = new GMailSender("inaki.seri@gmail.com", "nagusianagusia2");
+            GMailSender sender = new GMailSender("mallorcagdgtest@gmail.com", "2345dpKkOLlawp");
             sender.sendMail("Vamos acabando que queremos ir a por las alitas",
                     "xD",
                     "inaki.seri@gmail.com",
