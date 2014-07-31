@@ -38,7 +38,8 @@ public class MainActivity extends Activity implements DataApi.DataListener,
     private static final String EVENT_TITLE = "title";
     private static final String EVENT_CODE = "id";
     private static final String EVENT_ATTENDEES = "attendees";
-    private static final int REQUEST_RESOLVE_ERROR = 1000;
+    private
+    static final int REQUEST_RESOLVE_ERROR = 1000;
     private static final String START_ACTIVITY_PATH = "/start-activity";
     private static final String CALENDAR_PATH = "/calendar";
 

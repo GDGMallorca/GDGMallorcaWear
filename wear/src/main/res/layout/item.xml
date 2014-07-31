@@ -24,7 +24,7 @@
             android:layout_height="match_parent"
             android:fontFamily="sans-serif-condensed-light"
             android:lineSpacingExtra="-4sp"
-            android:textSize="16sp" />
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/date"
@@ -33,6 +33,6 @@
             android:layout_height="match_parent"
             android:fontFamily="sans-serif-condensed-light"
             android:lineSpacingExtra="-4sp"
-            android:textSize="16sp" />
+            android:textSize="14sp" />
     </LinearLayout>
 </com.gdgmallorcawear.WearableListItemLayout>
