@@ -8,6 +8,10 @@ import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 import android.support.v4.app.RemoteInput;
 
+import com.gdgmallorcawear.utils.CalendarUtils;
+import com.gdgmallorcawear.utils.Event;
+import com.gdgmallorcawear.utils.Utils;
+
 import java.util.ArrayList;
 
 public class ServiceReceiver extends BroadcastReceiver {

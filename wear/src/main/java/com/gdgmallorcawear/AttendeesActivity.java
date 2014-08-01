@@ -117,10 +117,6 @@ public class AttendeesActivity extends Activity implements WearableListView.Clic
         Wearable.DataApi.addListener(mGoogleApiClient, this);
         Wearable.MessageApi.addListener(mGoogleApiClient, this);
         Wearable.NodeApi.addListener(mGoogleApiClient, this);
-
-        //Start the speech recognition
-        //     displaySpeechRecognizer();
-
     }
 
     @Override
@@ -164,7 +160,6 @@ public class AttendeesActivity extends Activity implements WearableListView.Clic
             // Do something with spokenText
             Log.d("JM", "Texto:" + spokenText);
             mString = spokenText;
-            new sendMails().execute();
             mDataItemList.setVisibility(View.GONE);
             mDelayedConfirmationView.setVisibility(View.VISIBLE);
             mDelayedConfirmationView.start();
@@ -194,28 +189,6 @@ public class AttendeesActivity extends Activity implements WearableListView.Clic
         }
 
         return results;
-    }
-
-    private class sendMails extends AsyncTask<Void, Void, Void> {
-
-        @Override
-        protected Void doInBackground(Void... args) {
-            Collection<String> nodes = getNodes();
-            for (String node : nodes) {
-                Wearable.MessageApi.sendMessage(
-                        mGoogleApiClient, node, mId.toString()+"::"+mString, new byte[0]).setResultCallback(
-                        new ResultCallback<MessageApi.SendMessageResult>() {
-                            @Override
-                            public void onResult(MessageApi.SendMessageResult sendMessageResult) {
-                                if (!sendMessageResult.getStatus().isSuccess()) {
-                                }
-                            }
-                        }
-                );
-
-            }
-            return null;
-        }
     }
 
     @Override

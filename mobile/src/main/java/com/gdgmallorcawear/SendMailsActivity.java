@@ -10,6 +10,10 @@
     import android.widget.ListView;
     import android.widget.TextView;
 
+    import com.gdgmallorcawear.utils.CalendarUtils;
+    import com.gdgmallorcawear.utils.Event;
+    import com.gdgmallorcawear.utils.Utils;
+
     import java.util.ArrayList;
 
 public class SendMailsActivity extends Activity {

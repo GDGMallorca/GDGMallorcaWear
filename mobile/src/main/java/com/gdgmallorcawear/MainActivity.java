@@ -9,7 +9,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
-import com.gdgmallorcawear.mail.GMailSender;
+import com.gdgmallorcawear.utils.CalendarUtils;
+import com.gdgmallorcawear.utils.Event;
+import com.gdgmallorcawear.utils.Utils;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
@@ -179,7 +181,6 @@ public class MainActivity extends Activity implements DataApi.DataListener,
     @Override
     public void onMessageReceived(final MessageEvent messageEvent) {
 
-        sendMail(messageEvent.getPath());
     }
 
     @Override
@@ -218,20 +219,4 @@ public class MainActivity extends Activity implements DataApi.DataListener,
         }
     }
 
-    private void sendMail(String path) {
-        String[] message = path.split("::");
-        Event event = CalendarUtils.getSingleEvent(this, Long.parseLong(message[0]));
-
-        try {
-            GMailSender sender = new GMailSender("mallorcagdgtest@gmail.com", "2345dpKkOLlawp");
-            for(String atttendees : event.getAttendeesMail()) {
-                sender.sendMail(message[1],
-                        "Vamos acabando que queremos ir a por las alitas",
-                        "mallorcagdgtest@gmail.com",
-                        atttendees);
-            }
-        } catch (Exception e) {
-            Log.e("SendMail", e.getMessage(), e);
-        }
-    }
 }

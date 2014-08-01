@@ -1,4 +1,4 @@
-package com.gdgmallorcawear;
+package com.gdgmallorcawear.utils;
 
 import android.content.ContentUris;
 import android.content.Context;
@@ -7,6 +7,8 @@ import android.net.Uri;
 import android.provider.CalendarContract;
 import android.text.format.DateUtils;
 import android.util.Log;
+
+import com.gdgmallorcawear.BuildConfig;
 
 import java.util.ArrayList;
 import java.util.Date;

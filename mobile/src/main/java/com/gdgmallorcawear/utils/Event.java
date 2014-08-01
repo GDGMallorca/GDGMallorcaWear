@@ -1,4 +1,4 @@
-package com.gdgmallorcawear;
+package com.gdgmallorcawear.utils;
 
 import java.util.ArrayList;
 

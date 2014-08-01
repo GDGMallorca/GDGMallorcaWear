@@ -1,9 +1,12 @@
-package com.gdgmallorcawear;
+package com.gdgmallorcawear.utils;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+
+import com.gdgmallorcawear.BuildConfig;
+import com.gdgmallorcawear.ServiceReceiver;
 
 import java.util.Date;
 
