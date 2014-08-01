@@ -14,8 +14,6 @@ import com.google.android.gms.wearable.WearableListenerService;
  */
 public class DataLayerListenerService extends WearableListenerService {
 
-    private static final String TAG = "DataLayerListenerServic";
-
     private static final String START_ACTIVITY_PATH = "/start-activity";
     GoogleApiClient mGoogleApiClient;
 
