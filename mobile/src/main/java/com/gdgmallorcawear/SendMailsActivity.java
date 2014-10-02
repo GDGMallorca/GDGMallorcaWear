@@ -41,7 +41,7 @@ public class SendMailsActivity extends Activity {
                     this, intent.getLongExtra(Utils.EXTRA_EVENT_ID, 0));
             ListView listitems=(ListView)findViewById(R.id.mail_list);
 
-            for (String mail : event.attendeesMail)
+            for (String mail : event.getAttendeesMail())
                 mails.add(mail);
 
             ArrayAdapter adapter =

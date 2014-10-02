@@ -47,7 +47,7 @@ public class ServiceReceiver extends BroadcastReceiver {
             NotificationCompat.Builder notificationBuilder =
                     new NotificationCompat.Builder(context)
                             .setSmallIcon(R.drawable.ic_launcher)
-                            .setContentTitle(event.eventName)
+                            .setContentTitle(event.getEventName())
                             .setContentText(context.getString(R.string.warning_late))
 //                            .setContentIntent(viewPendingIntent)
                             .setGroup(Utils.GROUP_KEY_MESSAGES)
@@ -70,7 +70,7 @@ public class ServiceReceiver extends BroadcastReceiver {
 //                            .setBackground(background);
 
             // Build the notification and issues it with notification manager.
-            notificationManager.notify((int)event.eventCode, notificationBuilder.build());
+            notificationManager.notify((int)event.getEventCode(), notificationBuilder.build());
         }
     }
 }
