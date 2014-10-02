@@ -185,6 +185,7 @@ public class MainActivity extends Activity implements DataApi.DataListener,
 
     @Override
     public void onPeerConnected(final Node peer) {
+        sendEvents();
     }
 
     @Override
