@@ -1,21 +1,22 @@
 package com.gdgmallorcawear;
 
 
-import android.content.Intent;
-import android.util.Log;
-
+import com.gdgmallorcawear.utils.CalendarUtils;
+import com.gdgmallorcawear.utils.Event;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.wearable.DataEventBuffer;
 import com.google.android.gms.wearable.MessageEvent;
+import com.google.android.gms.wearable.PutDataMapRequest;
 import com.google.android.gms.wearable.Wearable;
 import com.google.android.gms.wearable.WearableListenerService;
+
+import java.util.ArrayList;
 
 /**
  * Listens to DataItems and Messages from the local node.
  */
 public class DataLayerListenerService extends WearableListenerService {
 
-    private static final String START_ACTIVITY_PATH = "/start-activity";
     GoogleApiClient mGoogleApiClient;
 
     @Override
@@ -33,14 +34,19 @@ public class DataLayerListenerService extends WearableListenerService {
 
     @Override
     public void onMessageReceived(MessageEvent messageEvent) {
-        if (messageEvent.getPath().equals(START_ACTIVITY_PATH)) {
-            Intent startIntent = new Intent(this, MainWearActivity.class);
-            startIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(startIntent);
-        }else{
-           Log.e("inaki", "xxxx " + messageEvent.getData().toString());
-        }
+        sendEvents();
     }
 
+
+    private void sendEvents() {
+        ArrayList<Event> events = CalendarUtils.getEvents(this);
+        for (Event event : events) {
+            final PutDataMapRequest putDataMapRequest = CalendarUtils.toPutDataMapRequest(event);
+            if (mGoogleApiClient.isConnected()) {
+                Wearable.DataApi.putDataItem(
+                        mGoogleApiClient, putDataMapRequest.asPutDataRequest());
+            }
+        }
+    }
 
 }

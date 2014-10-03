@@ -82,7 +82,15 @@ public class MainWearActivity extends Activity implements ConnectionCallbacks,
         Wearable.DataApi.addListener(mGoogleApiClient, this);
         Wearable.MessageApi.addListener(mGoogleApiClient, this);
         Wearable.NodeApi.addListener(mGoogleApiClient, this);
+          new Thread(new Runnable() {
+            @Override
+            public void run() {
 
+                NodeApi.GetConnectedNodesResult nodes =
+                Wearable.NodeApi.getConnectedNodes(mGoogleApiClient).await();
+                Wearable.MessageApi.sendMessage(mGoogleApiClient, nodes.getNodes().get(0).getId(), "XXX", null);
+            }
+        }).start();
     }
 
     @Override

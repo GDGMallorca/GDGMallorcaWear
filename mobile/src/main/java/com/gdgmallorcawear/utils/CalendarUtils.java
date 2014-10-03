@@ -9,6 +9,8 @@ import android.text.format.DateUtils;
 import android.util.Log;
 
 import com.gdgmallorcawear.BuildConfig;
+import com.google.android.gms.wearable.DataMap;
+import com.google.android.gms.wearable.PutDataMapRequest;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -17,6 +19,13 @@ import java.util.Date;
  * Created by jmliras on 13/07/14.
  */
 public class CalendarUtils {
+
+    public static final String DATA_ITEM_URI = "data_item_uri";
+    private static final String EVENT_BEGIN = "begin";
+    private static final String EVENT_TITLE = "title";
+    private static final String EVENT_CODE = "id";
+    private static final String EVENT_ATTENDEES = "attendees";
+    private static final String CALENDAR_PATH = "/calendar";
 
     private static final String[] COLS = new String[] {
             CalendarContract.Instances.TITLE,
@@ -139,4 +148,16 @@ public class CalendarUtils {
         return event;
     }
 
+
+    public static  PutDataMapRequest toPutDataMapRequest(Event event) {
+        final PutDataMapRequest putDataMapRequest = PutDataMapRequest.create(CALENDAR_PATH);
+        DataMap data = putDataMapRequest.getDataMap();
+        data.putString(DATA_ITEM_URI, putDataMapRequest.getUri().toString());
+        data.putLong(EVENT_BEGIN, event.getBegin());
+        data.putLong(EVENT_CODE, event.getEventCode());
+        data.putString(EVENT_TITLE, event.getEventName());
+        data.putStringArrayList(EVENT_ATTENDEES, event.getAttendeesMail());
+
+        return putDataMapRequest;
+    }
 }

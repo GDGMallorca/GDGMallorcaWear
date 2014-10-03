@@ -35,15 +35,9 @@ public class MainActivity extends Activity implements DataApi.DataListener,
         GoogleApiClient.OnConnectionFailedListener {
 
     private static final String TAG = "MainActivity";
-    public static final String DATA_ITEM_URI = "data_item_uri";
-    private static final String EVENT_BEGIN = "begin";
-    private static final String EVENT_TITLE = "title";
-    private static final String EVENT_CODE = "id";
-    private static final String EVENT_ATTENDEES = "attendees";
     private
     static final int REQUEST_RESOLVE_ERROR = 1000;
     private static final String START_ACTIVITY_PATH = "/start-activity";
-    private static final String CALENDAR_PATH = "/calendar";
 
 
     private GoogleApiClient mGoogleApiClient;
@@ -180,6 +174,7 @@ public class MainActivity extends Activity implements DataApi.DataListener,
 
     @Override
     public void onMessageReceived(final MessageEvent messageEvent) {
+        sendEvents();
 
     }
 
@@ -193,23 +188,10 @@ public class MainActivity extends Activity implements DataApi.DataListener,
 
     }
 
-    public PutDataMapRequest toPutDataMapRequest(Event event) {
-        final PutDataMapRequest putDataMapRequest = PutDataMapRequest.create(CALENDAR_PATH);
-        DataMap data = putDataMapRequest.getDataMap();
-        data.putString(DATA_ITEM_URI, putDataMapRequest.getUri().toString());
-        data.putLong(EVENT_BEGIN, event.getBegin());
-        data.putLong(EVENT_CODE, event.getEventCode());
-        data.putString(EVENT_TITLE, event.getEventName());
-        data.putStringArrayList(EVENT_ATTENDEES, event.getAttendeesMail());
-
-        return putDataMapRequest;
-    }
-
-
     private void sendEvents() {
         ArrayList<Event> events = CalendarUtils.getEvents(this);
         for (Event event : events) {
-            final PutDataMapRequest putDataMapRequest = toPutDataMapRequest(event);
+            final PutDataMapRequest putDataMapRequest = CalendarUtils.toPutDataMapRequest(event);
             if (mGoogleApiClient.isConnected()) {
                 Wearable.DataApi.putDataItem(
                         mGoogleApiClient, putDataMapRequest.asPutDataRequest());
