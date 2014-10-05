@@ -43,8 +43,10 @@ public class CalendarUtils {
                 .buildUpon();
         long now = new Date().getTime();
         ContentUris.appendId(eventsUriBuilder, now);
-        ContentUris.appendId(eventsUriBuilder, now
-                + DateUtils.WEEK_IN_MILLIS);
+        if (BuildConfig.DEBUG) ContentUris.appendId(eventsUriBuilder, now
+                + Utils.DEBUG_REFRESH_TIME);
+        else ContentUris.appendId(eventsUriBuilder, now
+                + Utils.REFRESH_TIME);
         Uri eventsUri = eventsUriBuilder.build();
 
         ArrayList<Event> eventList = new ArrayList<Event>();
